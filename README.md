@@ -59,7 +59,7 @@ Configure your locales and translation files folder in your `config.yml`.
 
 ```yaml
 we_provide_translation:
-    default_locale: '%locale%'
-    locales: [en, nl]
-    resource: '@YourAppBundle/Resources/translations'
+    default_locale: '%locale%'								# defaults to 'en' if not set
+    locales: [en, nl]										# required
+    resource: '@YourAppBundle/Resources/translations'		# optional
 ```

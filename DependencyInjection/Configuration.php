@@ -26,6 +26,7 @@ class Configuration implements ConfigurationInterface
                     ->defaultValue('en')
                 ->end()
                 ->arrayNode('locales')
+                    ->isRequired()
                     ->prototype('scalar')->end()
                 ->end()
                 ->scalarNode('resource')
