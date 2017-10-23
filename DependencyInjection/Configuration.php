@@ -35,6 +35,9 @@ class Configuration implements ConfigurationInterface
 //                    ->prototype('scalar') ->end()
 //                    ->validate()->ifEmpty()->then(function ($v) { return array('name' => $v); })->end()   // TODO: fill array with default path "@WeProvideTranslationBundle/Resources/translations"
                 ->end()
+                ->arrayNode('translate_bundles')
+                    ->prototype('scalar')->end()
+                ->end()
             ->end();
 
         return $treeBuilder;

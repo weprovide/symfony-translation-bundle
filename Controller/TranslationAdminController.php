@@ -5,18 +5,30 @@ namespace WeProvide\TranslationBundle\Controller;
 use JMS\TranslationBundle\Translation\Dumper\YamlDumper;
 use JMS\TranslationBundle\Translation\FileWriter;
 use Sonata\AdminBundle\Controller\CRUDController;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Input\ArrayInput;
+use Symfony\Component\Console\Output\BufferedOutput;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class TranslationAdminController extends CRUDController
 {
+    /**
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function listAction()
     {
         $catalogue = $this->getCatalogue();
 
         return $this->render('WeProvideTranslationBundle:TranslationAdmin:list.html.twig', array(
             'catalogue' => $catalogue,
+//            'action' => 'list'
         ));
     }
 
+    /**
+     * @param null $id
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function editAction($id = null)
     {
         $domain = $this->getRequest()->get('domain');
@@ -37,6 +49,64 @@ class TranslationAdminController extends CRUDController
             'id'           => $id,
             'translations' => $translations,
         ));
+    }
+
+    /**
+     *
+     * @return RedirectResponse
+     */
+    public function extractAction()
+    {
+        // Extracting the translations is done using the extract command of the JMSTranslationBundle. Help on the syntax of that bundle can be
+        // obtained by `php bin/console translation:extract --help`. For more information see https://jmsyst.com/bundles/JMSTranslationBundle/master/usage
+
+        // translation:extract nl_NL --bundle=AppBundle --output-dir=./app/Resources/translations --exclude-dir=@WeProvideTranslationBundle
+
+
+        $resourcePath     = $this->getParameter('we_provide_translation.resource');
+        $supportedLocales = $this->getParameter('we_provide_translation.locales');
+        $translateBundles = $this->getParameter('we_provide_translation.translate_bundles');
+        $fileLocator      = $this->get('file_locator');
+
+//        echo "<pre>";
+//        var_dump($translateBundles);
+//        var_dump($supportedLocales);
+//        die();
+
+        // Default parameters.
+        $parameters = array(
+            'command'         => 'translation:extract',
+            'locales'         => $supportedLocales,
+            '--output-format' => 'yml',
+            '--output-dir'    => $fileLocator->locate($resourcePath),
+            '--exclude-dir'   => [$fileLocator->locate('@WeProvideTranslationBundle')],
+            '--keep',
+        );
+        if ($translateBundles) {
+            foreach ($translateBundles as $translateBundle) {
+                $parameters["--bundle"] = $translateBundle;
+                $this->extractCommand($parameters);
+            }
+        } else {
+            $this->extractCommand($parameters);
+        }
+
+        // TODO: translate message in our domain
+        $this->addFlash('sonata_flash_success', 'Transalations extracted');
+
+        return new RedirectResponse($this->admin->generateUrl('list'));
+    }
+
+    private function extractCommand($parameters)
+    {
+        $application = new Application($this->get('kernel'));
+        $application->setAutoExit(false);
+
+        $command    = $application->find('translation:extract');
+        $input      = new ArrayInput($parameters);
+        $output     = new BufferedOutput();
+        $returnCode = $command->run($input, $output);
+        $content    = $output->fetch();
     }
 
 

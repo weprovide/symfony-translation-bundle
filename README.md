@@ -15,14 +15,12 @@ This bundle is free to use and open for improvements, please share your thoughts
 
 This bundle is developed with a Symfony Standard Edition on PHP 7.1 using We Provide's version of valet. Obviously it has dependencies to other projects and/or bundles. Below a list of dependencies, please use the installation guides of these bundles.
  * Symfony Standard Edition 3.3
- * Sonata Admin Bundle 3.23
+ * Sonata Admin Bundle 3.23 (with SonataDoctrineORMAdminBundle)
  * JMS Translation Bundle 1.3
 
 ## How does this work?
 
 You can use the JMS Translation Bundle to grab and collect all the translations in your own bundles (or all bundles in your project). This will generate YML files for each locale you've configured in a folder you want. Configure this folder and the locales you wish to manage and use this bundle to manage the translations.
-
-*// TODO: this bundle in the future will grab and collect the translations for you through a button in the admin.*
 
 
 ## Installation
@@ -59,7 +57,17 @@ Configure your locales and translation files folder in your `config.yml`.
 
 ```yaml
 we_provide_translation:
-    default_locale: '%locale%'								# defaults to 'en' if not set
-    locales: [en, nl]										# required
-    resource: '@YourAppBundle/Resources/translations'		# optional
+    # defaults to 'en' if not set, you can use strings like 'en' or a parameter
+    default_locale: '%locale%'
+    
+    # required, array with locaes you wish the manage
+    locales: [en, nl_NL]
+    
+    # optional, array with (paths of) your bundles to extract translations from
+    # if ommitted, extract from your complete project 
+    translate_bundles: [YourAppBundle]
+    
+    # optional, location where translation files will be written
+    # if ommitted, '@WeProvidePortalBundle/Resources/translations' will be the target
+    resource: '@YourAppBundle/Resources/translations'
 ```

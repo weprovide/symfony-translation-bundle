@@ -1,7 +1,19 @@
 services:
+
+    we_provide_translation_repository:
+        class: WeProvide\TranslationBundle\Repository\TranslationRepository     # Doctrine\ORM\EntityRepository
+        factory: ['@doctrine.orm.default_entity_manager', getRepository]
+        arguments:
+            - WeProvide\TranslationBundle\Entity\Translation
+
+
+
     we_provide_admin_translation:
         class: WeProvide\TranslationBundle\Admin\TranslationAdmin
+#        arguments: [~, WeProvide\TranslationBundle\Entity\Translation, WeProvideTranslationBundle:TranslationAdmin]
         arguments: [~, ~, WeProvideTranslationBundle:TranslationAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Translation, label: Translation }
+            - { name: sonata.admin, manager_type: orm, group: Translation, label: Translation } #, datagrid_builder:  }
         public: true
+#        calls:
+#            - [ setTranslationDomain, [WeProvideTranslationBundle]]  # For translations of our interface & messages

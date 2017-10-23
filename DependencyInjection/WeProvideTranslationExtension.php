@@ -31,6 +31,7 @@ class WeProvideTranslationExtension extends Extension
         $container->setParameter('we_provide_translation.default_locale', $config['default_locale']);
         $container->setParameter('we_provide_translation.locales', $config['locales']);
         $container->setParameter('we_provide_translation.resource', $config['resource']);
+        $container->setParameter('we_provide_translation.translate_bundles', $config['translate_bundles']);
 
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
