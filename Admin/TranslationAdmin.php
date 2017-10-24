@@ -32,7 +32,6 @@ class TranslationAdmin extends AbstractAdmin
 //            ->addIdentifier('route_name')
 //            ->add('state', null, array('editable' => true))
 //        ;
-
     }
 
 
@@ -45,7 +44,7 @@ class TranslationAdmin extends AbstractAdmin
     {
         $list = parent::configureActionButtons($action, $object);
 
-        // TODO: only add extract action when user is allowed to
+        // TODO: only add extract action when user is allowed to?
         $list['extract'] = array(
             'template' => 'WeProvideTranslationBundle:TranslationAdmin:action_extract.html.twig',
         );
@@ -57,5 +56,37 @@ class TranslationAdmin extends AbstractAdmin
     public function toString($object)
     {
         return 'test';
+    }
+
+
+    public function getFilterParameters()
+    {
+        $parameters = array();
+
+        // build the values array
+        if ($this->hasRequest()) {
+            $filters = $this->request->query->get('filter', array());
+
+            // if persisting filters, save filters to session, or pull them out of session if no new filters set
+            if ($this->persistFilters) {
+                if ($filters == array() && $this->request->query->get('filters') != 'reset') {
+                    $filters = $this->request->getSession()->get($this->getCode().'.filter.parameters', array());
+                } else {
+                    $this->request->getSession()->set($this->getCode().'.filter.parameters', $filters);
+                }
+            }
+
+            $parameters = array_merge(
+                $this->datagridValues,
+                $this->getDefaultFilterValues(),
+                $filters
+            );
+
+            if (!$this->determinedPerPageValue($parameters['_per_page'])) {
+                $parameters['_per_page'] = $this->maxPerPage;
+            }
+        }
+
+        return $parameters;
     }
 }

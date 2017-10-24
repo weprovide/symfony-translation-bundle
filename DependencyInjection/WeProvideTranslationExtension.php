@@ -22,17 +22,14 @@ class WeProvideTranslationExtension extends Extension
         $configuration = new Configuration();
         $config        = $this->processConfiguration($configuration, $configs);
 
+        // Set all of our configs in an array so we can inject it into a service.
+        $container->setParameter('we_provide_translation.config', $config);
 
-//        echo "<pre>";
-//        var_dump($config);
-//        die();
-
-
+        // Set all configs as single value.
         $container->setParameter('we_provide_translation.default_locale', $config['default_locale']);
         $container->setParameter('we_provide_translation.locales', $config['locales']);
         $container->setParameter('we_provide_translation.resource', $config['resource']);
         $container->setParameter('we_provide_translation.translate_bundles', $config['translate_bundles']);
-
 
         $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');

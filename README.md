@@ -7,10 +7,6 @@ The We Provide Translation Bundle incorporates the JMS/TranslationBundle into th
 This bundle for now only supports translations in YML files.
 
 
-## License
-
-This bundle is free to use and open for improvements, please share your thoughts which will be much appreciated.
-
 ## Dependencies
 
 This bundle is developed with a Symfony Standard Edition on PHP 7.1 using We Provide's version of valet. Obviously it has dependencies to other projects and/or bundles. Below a list of dependencies, please use the installation guides of these bundles.
@@ -60,14 +56,24 @@ we_provide_translation:
     # defaults to 'en' if not set, you can use strings like 'en' or a parameter
     default_locale: '%locale%'
     
-    # required, array with locaes you wish the manage
+    # required, array with locales you wish the manage
     locales: [en, nl_NL]
     
     # optional, array with (paths of) your bundles to extract translations from
-    # if ommitted, extract from your complete project 
+    # if omitted, extracts from your complete project 
     translate_bundles: [YourAppBundle]
     
     # optional, location where translation files will be written
-    # if ommitted, '@WeProvidePortalBundle/Resources/translations' will be the target
+    # if omitted, '@WeProvidePortalBundle/Resources/translations' will be the target
     resource: '@YourAppBundle/Resources/translations'
 ```
+
+
+## License
+
+This bundle has been released under the MIT license and open for improvements, please share your thoughts which will be much appreciated.
+
+
+## Authors
+
+- Mischa Braam ([@mischabraam](https://github.com/mischabraam))
