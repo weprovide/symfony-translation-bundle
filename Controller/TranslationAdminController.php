@@ -39,7 +39,12 @@ class TranslationAdminController extends CRUDController
             $repository->updateTranslation($domain, $id, $localeString);
 
             // TODO: add flash message "updated" or something....
-            // TODO: if action is "submit & close" redirect to list.
+
+            if (null !== $this->getRequest()->get('btn_update_and_list')) {
+                $url = $this->admin->generateUrl('list');
+
+                return new RedirectResponse($url);
+            }
         }
 
         $translations = $repository->findOneBy(
