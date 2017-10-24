@@ -1,5 +1,34 @@
 {% extends base_template %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link rel="stylesheet" href="{{ asset('bundles/weprovidetranslation/css/styles.css') }}">
+{% endblock %}
+
+{% block title %}
+    - {% trans %}Translation edit{% endtrans %}
+{% endblock %}
+
+
+{% block breadcrumb %}
+    <div class="hidden-xs">
+        <ol class="nav navbar-top-links breadcrumb">
+            <li>
+                <a href="/admin/dashboard">
+                    <i class="fa fa-home"></i>
+                </a>
+            </li>
+            <li>
+                <a href="{{ admin.generateUrl('list') }}">
+                    {% trans %}Translation list{% endtrans %}
+                </a>
+            </li>
+            <li class="active"><span class="breadcrumb-ellipsis">{% trans %}Translation edit{% endtrans %}: {{ id }}</span></li>
+        </ol>
+    </div>
+{% endblock %}
+
+
 {% block form %}
     {#{{ dump(translations) }}#}
 
@@ -49,7 +78,9 @@
                                             </label>
 
                                             <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                                                <input id="s59bbdde366ad9_localeString" name="localeString[{{ locale }}]" required="required" class=" form-control" value="{{ translation.localeString }}" type="text"/>
+                                                <textarea id="s59bbdde366ad9_localeString" name="localeString[{{ locale }}]" required="required" class=" form-control">{{ translation.localeString }}</textarea>
+
+                                                {# TODO: support ckeditor? #}
                                             </div>
                                         </div>
 

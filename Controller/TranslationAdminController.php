@@ -38,7 +38,8 @@ class TranslationAdminController extends CRUDController
             $localeString = $this->getRequest()->get('localeString');
             $repository->updateTranslation($domain, $id, $localeString);
 
-            // TODO: add flash message "updated" or something....
+            // TODO: translate message in our domain
+            $this->addFlash('sonata_flash_success', 'Transalation succesfully updated');
 
             if (null !== $this->getRequest()->get('btn_update_and_list')) {
                 $url = $this->admin->generateUrl('list');
