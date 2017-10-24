@@ -37,7 +37,7 @@ class TranslationRepository
      * @param null $locale
      * @return \JMS\TranslationBundle\Model\MessageCatalogue
      */
-    public function getCatalogue($locale = null)
+    private function getCatalogue($locale = null)
     {
         $defaultLocale = $this->config['default_locale'];
         $resourcePath  = $this->config['resource'];
@@ -131,8 +131,10 @@ class TranslationRepository
         $translations = array();
 
         foreach ($catalogue->getDomains() as $domainKey => $domain) {
-            foreach ($domain->all() as $message) {
-                $translations[] = $message;
+            if ($domainKey != "WeProvideTranslationBundle") {
+                foreach ($domain->all() as $message) {
+                    $translations[] = $message;
+                }
             }
         }
 

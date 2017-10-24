@@ -7,7 +7,7 @@ services:
         class: WeProvide\TranslationBundle\Admin\TranslationAdmin
         arguments: [~, ~, WeProvideTranslationBundle:TranslationAdmin]
         tags:
-            - { name: sonata.admin, manager_type: orm, group: Translation, label: Translation }
+            - { name: sonata.admin, manager_type: orm, group: Translation, label: Translation, label_catalogue: "WeProvideTranslationBundle" }
         public: true
-#        calls:
-#            - [ setTranslationDomain, [WeProvideTranslationBundle]]  # For translations of our interface & messages
+        calls:
+            - [ setTranslationDomain, [WeProvideTranslationBundle]]

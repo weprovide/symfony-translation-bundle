@@ -1,22 +1,14 @@
 # We Provide Translation Bundle
 
-The We Provide Translation Bundle incorporates the JMS/TranslationBundle into the Sonata/AdminBundle. Both bundles are awesome but do not work together out of the box. Using this bundle you'll be able to manage your translations through the easy-to-use admin.
-
-## Note
-
-This bundle for now only supports translations in YML files.
+The We Provide Translation Bundle for Symfony incorporates the JMS/TranslationBundle into the Sonata/AdminBundle. Both bundles are awesome but do not work together out of the box. Using this bundle you'll be able to extract and manage your translations through the easy-to-use admin.
 
 
 ## Dependencies
 
-This bundle is developed with a Symfony Standard Edition on PHP 7.1 using We Provide's version of valet. Obviously it has dependencies to other projects and/or bundles. Below a list of dependencies, please use the installation guides of these bundles.
- * Symfony Standard Edition 3.3
- * Sonata Admin Bundle 3.23 (with SonataDoctrineORMAdminBundle)
- * JMS Translation Bundle 1.3
-
-## How does this work?
-
-You can use the JMS Translation Bundle to grab and collect all the translations in your own bundles (or all bundles in your project). This will generate YML files for each locale you've configured in a folder you want. Configure this folder and the locales you wish to manage and use this bundle to manage the translations.
+This bundle is developed with a Symfony Standard Edition on PHP 7.1 using We Provide's version of valet. Obviously it has dependencies to other projects and/or bundles. Below a list of dependencies, please use the installation guides of these bundles first.
+ * [Symfony Standard Edition 3.3](https://symfony.com/doc/current/setup.html#creating-symfony-applications-with-composer)
+ * [Sonata Admin Bundle 3.23](https://sonata-project.org/bundles/admin/3-x/doc/getting_started/installation.html) (with [SonataDoctrineORMAdminBundle](https://sonata-project.org/bundles/doctrine-orm-admin/master/doc/reference/installation.html))
+ * [JMS Translation Bundle 1.3](https://jmsyst.com/bundles/JMSTranslationBundle/master/installation)
 
 
 ## Installation
@@ -24,7 +16,7 @@ You can use the JMS Translation Bundle to grab and collect all the translations 
 Install this bundle into your project using Composer.
 
 ```
-composer require .../symfony-translation-bundle
+composer require weprovide/symfony-translation-bundle
 ```
 
 Enable the bundle by inserting it in your Symfony's `AppKernel.php`.
@@ -72,6 +64,7 @@ we_provide_translation:
 ## License
 
 This bundle has been released under the MIT license and open for improvements, please share your thoughts which will be much appreciated.
+
 
 
 ## Authors

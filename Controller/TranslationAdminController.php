@@ -38,8 +38,10 @@ class TranslationAdminController extends CRUDController
             $localeString = $this->getRequest()->get('localeString');
             $repository->updateTranslation($domain, $id, $localeString);
 
-            // TODO: translate message in our domain
-            $this->addFlash('sonata_flash_success', 'Transalation succesfully updated');
+            $this->addFlash(
+                'sonata_flash_success',
+                $this->get('translator')->trans('Transalation succesfully updated', array(), 'WeProvideTranslationBundle')
+            );
 
             if (null !== $this->getRequest()->get('btn_update_and_list')) {
                 $url = $this->admin->generateUrl('list');
@@ -94,8 +96,10 @@ class TranslationAdminController extends CRUDController
             $this->extractCommand($parameters);
         }
 
-        // TODO: translate message in our domain
-        $this->addFlash('sonata_flash_success', 'Transalations extracted');
+        $this->addFlash(
+            'sonata_flash_success',
+            $this->get('translator')->trans('Transalations succesfully extracted', array(), 'WeProvideTranslationBundle')
+        );
 
         return new RedirectResponse($this->admin->generateUrl('list'));
     }
