@@ -111,51 +111,73 @@
                 {% if translations and translations|length > 0 %}
                     <div class="box-footer">
 
+                        {% set numberOfPages = (repository.getCount / admin.getFilterParameters._per_page)|round(0, 'ceil') %}
 
-                        {#{{ dump(admin.getFilterParameters) }}#}
-                        {#{{ admin.getMaxPageLinks }}#}
+                        <div class="form-inline clearfix">
+                            <div class="pull-right">
+                                {% block pager_results %}
+                                    {% block num_pages %}
+                                        {{ admin.getFilterParameters._page }} / {{ numberOfPages }}
+                                        &nbsp;-&nbsp;
+                                    {% endblock %}
 
+                                    {% block num_results %}
+                                        {% transchoice repository.getCount with {'%count%': repository.getCount} from 'SonataAdminBundle' %}list_results_count{% endtranschoice %}
+                                        &nbsp;-&nbsp;
+                                    {% endblock %}
 
-                        {# page count dropdown #}
-                        <div class="pull-right">
-                            {% block pager_results %}
-                                {% block num_pages %}
-                                    {{ admin.getFilterParameters._page }} / {{ (repository.getCount / admin.getFilterParameters._per_page)|round(0, 'ceil') }}
-                                    &nbsp;-&nbsp;
+                                    {% block max_per_page %}
+                                        <label class="control-label" for="{{ admin.uniqid }}_per_page">{% trans from 'SonataAdminBundle' %}label_per_page{% endtrans %}</label>
+                                        <select class="per-page small form-control" id="{{ admin.uniqid }}_per_page" style="width: auto">
+                                            {% for per_page in admin.getperpageoptions %}
+                                                <option {% if per_page == admin.getFilterParameters._per_page %}selected="selected"{% endif %} value="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': 1, '_per_page': per_page})}) }}">
+                                                    {{- per_page -}}
+                                                </option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endblock %}
                                 {% endblock %}
-
-                                {% block num_results %}
-                                    {% transchoice repository.getCount with {'%count%': repository.getCount} from 'SonataAdminBundle' %}list_results_count{% endtranschoice %}
-                                    &nbsp;-&nbsp;
-                                {% endblock %}
-
-                                {% block max_per_page %}
-                                    <label class="control-label" for="{{ admin.uniqid }}_per_page">{% trans from 'SonataAdminBundle' %}label_per_page{% endtrans %}</label>
-                                    <select class="per-page small form-control" id="{{ admin.uniqid }}_per_page" style="width: auto">
-                                        {% for per_page in admin.getperpageoptions %}
-                                            <option {% if per_page == admin.getFilterParameters._per_page %}selected="selected"{% endif %} value="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': 1, '_per_page': per_page})}) }}">
-                                                {{- per_page -}}
-                                            </option>
-                                        {% endfor %}
-                                    </select>
-                                {% endblock %}
-                            {% endblock %}
+                            </div>
                         </div>
 
-                        {# pagination #}
                         {% block pager_links %}
-                            pager_links
-                            {#{% if admin.datagrid.pager.haveToPaginate() %}#}
-                            {#<hr/>#}
-                            {#{% include admin.getTemplate('pager_links') %}#}
-                            {#{% endif %}#}
+                            {% if admin.haveToPaginate(repository.getCount) %}
+                                <hr/>
+                                <div class="text-center">
+                                    <ul class="pagination">
+                                        {% if admin.getFilterParameters._page > 2 %}
+                                            <li><a href="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': 1})}) }}" title="{{ 'link_first_pager'|trans({}, 'SonataAdminBundle') }}">&laquo;</a></li>
+                                        {% endif %}
+
+                                        {% if admin.getFilterParameters._page > 1 %}
+                                            <li><a href="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': admin.getFilterParameters._page-1})}) }}" title="{{ 'link_previous_pager'|trans({}, 'SonataAdminBundle') }}">&lsaquo;</a></li>
+                                        {% endif %}
+
+                                        {# Set the number of pages to display in the pager #}
+                                        {% for page in admin.getLinks(admin.getMaxPageLinks, numberOfPages) %}
+                                            {% if page == admin.getFilterParameters._page %}
+                                                <li class="active"><a href="javascript:;">{{ page }}</a></li>
+                                            {% else %}
+                                                <li><a href="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': page})}) }}">{{ page }}</a></li>
+                                            {% endif %}
+                                        {% endfor %}
+
+                                        {% if admin.getFilterParameters._page < numberOfPages %}
+                                            <li><a href="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': admin.getFilterParameters._page+1})}) }}" title="{{ 'link_next_pager'|trans({}, 'SonataAdminBundle') }}">&rsaquo;</a></li>
+                                        {% endif %}
+
+                                        {% if admin.getFilterParameters._page < numberOfPages - 1 %}
+                                            <li><a href="{{ admin.generateUrl('list', {'filter': admin.getFilterParameters|merge({'_page': numberOfPages})}) }}" title="{{ 'link_last_pager'|trans({}, 'SonataAdminBundle') }}">&raquo;</a></li>
+                                        {% endif %}
+                                    </ul>
+                                </div>
+                            {% endif %}
                         {% endblock %}
                     </div>
                 {% endif %}
             {% endblock %}
         </div>
-
-
+        
     </div>
 {% endblock %}
 

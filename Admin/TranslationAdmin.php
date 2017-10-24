@@ -89,4 +89,45 @@ class TranslationAdmin extends AbstractAdmin
 
         return $parameters;
     }
+
+    /**
+     * Returns an array of page numbers to use in pagination links.
+     *
+     * @param int  $nbLinks The maximum number of page numbers to return
+     * @param      $numberOfPages
+     * @return array
+     */
+    public function getLinks($nbLinks = null, $numberOfPages)
+    {
+        if ($nbLinks == null) {
+            $nbLinks = $this->getMaxPageLinks();
+        }
+
+        $filter = $this->getFilterParameters();
+        $page   = $filter['_page'];
+
+        $links = array();
+        $tmp   = $page - floor($nbLinks / 2);
+        $check = $numberOfPages - $nbLinks + 1;
+        $limit = $check > 0 ? $check : 1;
+        $begin = $tmp > 0 ? ($tmp > $limit ? $limit : $tmp) : 1;
+
+        $i = (int)$begin;
+        while ($i < $begin + $nbLinks && $i <= $numberOfPages) {
+            $links[] = $i++;
+        }
+
+        return $links;
+    }
+
+    /**
+     * Returns true if the current query requires pagination.
+     *
+     * @param $numberOfResults
+     * @return bool
+     */
+    public function haveToPaginate($numberOfResults)
+    {
+        return $this->getMaxPerPage() && $numberOfResults > $this->getMaxPerPage();
+    }
 }
