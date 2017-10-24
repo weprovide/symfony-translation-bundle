@@ -93,6 +93,7 @@ class TranslationAdminController extends CRUDController
                 $this->extractCommand($parameters);
             }
         } else {
+            // TODO: this breaks... so when no bundles to extract is configured the extraction breaks
             $this->extractCommand($parameters);
         }
 

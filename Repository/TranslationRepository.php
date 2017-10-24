@@ -19,6 +19,9 @@ class TranslationRepository
     protected $config;
 
 
+    protected $count;
+
+
     /**
      * TranslationRepository constructor.
      * @param FileLocator   $fileLocator
@@ -54,6 +57,10 @@ class TranslationRepository
      */
     public function getCount()
     {
+        if ($this->count != null) {
+            return $this->count;
+        }
+
         $translations = $this->findAll();
 
         return count($translations);
@@ -171,6 +178,7 @@ class TranslationRepository
             }
         }
 
+        $this->count = count($translations);
 
         // TODO: apply sorting
 
