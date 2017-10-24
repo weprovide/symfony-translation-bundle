@@ -155,7 +155,23 @@ class TranslationRepository
     {
         $translations = $this->findAll();
 
-        // TODO: apply criteria (filter)
+        // Apply criteria (filter)   TODO: do more like sonata does, try out of the box
+        foreach ($criteria as $key => $criterion) {
+            if (($filterField = str_replace('_filter_', '', $key)) !== $key &&
+                ($criterion = array_filter($criterion))) {
+                $translations = array_filter($translations, function ($translation) use ($filterField, $criterion) {
+                    $func  = 'get'.$filterField;
+                    $value = $translation->$func();
+                    if (isset($criterion['value'])) {
+                        return (strpos(strtolower($value), strtolower($criterion['value'])) !== false);
+                    }
+
+                    return true;
+                });
+            }
+        }
+
+
         // TODO: apply sorting
 
         // Apply pagination.

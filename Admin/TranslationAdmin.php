@@ -5,6 +5,7 @@ namespace WeProvide\TranslationBundle\Admin;
 use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Route\RouteCollection;
+use WeProvide\TranslationBundle\Filter\BaseFilter;
 
 class TranslationAdmin extends AbstractAdmin
 {
@@ -89,6 +90,29 @@ class TranslationAdmin extends AbstractAdmin
 
         return $parameters;
     }
+
+
+    public function getFilters()
+    {
+
+        $filters = array(
+            new BaseFilter(
+                'Domain',
+                array(
+                    'label' => 'Domain',
+                )
+            ),
+            new BaseFilter(
+                'Id',
+                array(
+                    'label' => 'Label',
+                )
+            ),
+        );
+
+        return $filters;
+    }
+
 
     /**
      * Returns an array of page numbers to use in pagination links.

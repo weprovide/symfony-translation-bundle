@@ -17,7 +17,7 @@ class TranslationAdminController extends CRUDController
     {
         $filter       = $this->admin->getFilterParameters();
         $repository   = $this->get("we_provide_translation_repository");
-        $translations = $repository->findBy(array(), array(), $filter['_per_page'], ($filter['_per_page'] * ($filter['_page'] - 1)));
+        $translations = $repository->findBy($filter, array(), $filter['_per_page'], ($filter['_per_page'] * ($filter['_page'] - 1)));
 
         return $this->render('WeProvideTranslationBundle:TranslationAdmin:list.html.twig', array(
             'repository'   => $repository,
