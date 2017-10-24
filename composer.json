@@ -9,26 +9,19 @@
 		}
 	],
 	"keywords": [
-		"we provide translation bundle"
+		"translation",
+		"weprovide",
+		"i18n",
+		"jms",
+		"multilanguage",
+		"sonata"
 	],
 	"license": [
 		"MIT"
 	],
-	"require": {
-	},
 	"autoload": {
-		"psr-0": {
-			"WeProvide\\TranslationBundle": ""
-		}
-	},
-	"target-dir": "WeProvide/TranslationBundle",
-	"repositories": [
-		{
-		}
-	],
-	"extra": {
-		"branch-alias": {
-			"dev-master": "some_version-dev"
+		"psr-4": {
+			"WeProvide\\TranslationBundle\\": ""
 		}
 	}
 }
