@@ -17,7 +17,7 @@ class TranslationAdmin extends AbstractAdmin
     {
         $collection->add('extract');
         $collection->remove('create');
-
+// TODO: also support create & delete (for translations we can't extract, for instance because concatenated labels are used, or labels based on variables)
 //        $collection->remove('show');
 //        $collection->remove('delete');
 //        $collection->remove('export');

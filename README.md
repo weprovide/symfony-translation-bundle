@@ -9,6 +9,7 @@ This bundle is developed with a Symfony Standard Edition on PHP 7.1 using We Pro
  * [Symfony Standard Edition 3.3](https://symfony.com/doc/current/setup.html#creating-symfony-applications-with-composer)
  * [Sonata Admin Bundle 3.23](https://sonata-project.org/bundles/admin/3-x/doc/getting_started/installation.html) (with [SonataDoctrineORMAdminBundle](https://sonata-project.org/bundles/doctrine-orm-admin/master/doc/reference/installation.html))
  * [JMS Translation Bundle 1.3](https://jmsyst.com/bundles/JMSTranslationBundle/master/installation)
+ * [Ivory CK Editor ^4.0](https://github.com/egeloen/IvoryCKEditorBundle)
 
 
 ## Installation

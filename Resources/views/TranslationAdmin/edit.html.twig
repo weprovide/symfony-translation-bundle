@@ -6,6 +6,16 @@
     <link rel="stylesheet" href="{{ asset('bundles/weprovidetranslation/css/styles.css') }}">
 {% endblock %}
 
+
+{% block javascripts %}
+
+    <script type="text/javascript" >
+      var CKEDITOR_BASEPATH = '/bundles/ivoryckeditor/';
+    </script>
+
+    <script type="text/javascript" src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}"></script>
+{% endblock %}
+
 {% block title %}
     - {% trans %}Translation edit{% endtrans %}
 {% endblock %}
@@ -79,7 +89,11 @@
                                             </label>
 
                                             <div class="sonata-ba-field sonata-ba-field-standard-natural">
-                                                <textarea id="s59bbdde366ad9_localeString" name="localeString[{{ locale }}]" required="required" class=" form-control">{{ translation.localeString }}</textarea>
+
+
+
+
+                                                <textarea id="s59bbdde366ad9_localeString" name="localeString[{{ locale }}]" required="required" class=" form-control ckeditor">{{ translation.localeString }}</textarea>
 
                                                 {# TODO: support ckeditor? #}
                                             </div>
