@@ -8,12 +8,18 @@
 
 
 {% block javascripts %}
-
-    <script type="text/javascript" >
+    <script type="text/javascript">
       var CKEDITOR_BASEPATH = '/bundles/ivoryckeditor/';
     </script>
 
     <script type="text/javascript" src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}"></script>
+
+    <script type="text/javascript">
+      CKEDITOR.config.autoParagraph = false;
+      CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+      CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_BR;
+      CKEDITOR.config.forcePasteAsPlainText = true
+    </script>
 {% endblock %}
 
 {% block title %}
@@ -41,9 +47,7 @@
 
 
 {% block form %}
-    {#{{ dump(translations) }}#}
-
-
+    {# TODO: this form should be build with a formbuilder, more Symfony alike #}
     <form method="POST">
         <div class="row">
             <div class="col-md-12">
@@ -89,13 +93,7 @@
                                             </label>
 
                                             <div class="sonata-ba-field sonata-ba-field-standard-natural">
-
-
-
-
                                                 <textarea id="s59bbdde366ad9_localeString" name="localeString[{{ locale }}]" required="required" class=" form-control ckeditor">{{ translation.localeString }}</textarea>
-
-                                                {# TODO: support ckeditor? #}
                                             </div>
                                         </div>
 
@@ -124,9 +122,4 @@
         </div>
 
     </form>
-
-
-
-
-
 {% endblock %}
