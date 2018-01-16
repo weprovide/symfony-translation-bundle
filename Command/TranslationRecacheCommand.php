@@ -24,12 +24,8 @@ class TranslationRecacheCommand extends ContainerAwareCommand
         $environment = $kernel->getEnvironment();
 
         if (@file_exists($cacheDir.'/wpclear')) {
-            $output->writeln('');
-            $output->writeln(' // Clearing the cache for the <info>'.$environment.'</info> environment with debug <info>false</info>');
-            $output->writeln('');
+            $output->writeln('Clearing the cache for the <info>'.$environment.'</info> environment with debug <info>false</info>');
             @exec('php bin/console cache:clear --env='.$environment.' --no-debug');
-        } else {
-            $output->writeln('Clear cache not needed');
         }
     }
 }
