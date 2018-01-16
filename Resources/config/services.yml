@@ -1,7 +1,7 @@
 services:
     we_provide_translation_repository:
         class: WeProvide\TranslationBundle\Repository\TranslationRepository
-        arguments: ['@file_locator', '@jms_translation.loader_manager', '%we_provide_translation.config%']
+        arguments: ['@event_dispatcher', '@file_locator', '@jms_translation.loader_manager', '%we_provide_translation.config%']
 
     we_provide_admin_translation:
         class: WeProvide\TranslationBundle\Admin\TranslationAdmin
@@ -11,3 +11,9 @@ services:
         public: true
         calls:
             - [ setTranslationDomain, [WeProvideTranslationBundle]]
+
+    we_provide_translation_update_listener:
+        class: WeProvide\TranslationBundle\Event\TranslationUpdateListener
+        arguments: ['%kernel.cache_dir%']
+        tags:
+            - { name: kernel.event_listener, event: translation.update, method: onTranslationUpdate }

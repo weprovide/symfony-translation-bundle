@@ -5,10 +5,15 @@ namespace WeProvide\TranslationBundle\Repository;
 use JMS\TranslationBundle\Translation\Dumper\YamlDumper;
 use JMS\TranslationBundle\Translation\FileWriter;
 use JMS\TranslationBundle\Translation\LoaderManager;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpKernel\Config\FileLocator;
+use WeProvide\TranslationBundle\Event\TranslationUpdateEvent;
 
 class TranslationRepository
 {
+    /** @var EventDispatcherInterface */
+    protected $dispatcher;
+
     /** @var FileLocator */
     protected $fileLocator;
 
@@ -24,12 +29,14 @@ class TranslationRepository
 
     /**
      * TranslationRepository constructor.
-     * @param FileLocator   $fileLocator
-     * @param LoaderManager $loaderManager
-     * @param array         $config
+     * @param EventDispatcherInterface $dispatcher
+     * @param FileLocator              $fileLocator
+     * @param LoaderManager            $loaderManager
+     * @param array                    $config
      */
-    public function __construct(FileLocator $fileLocator, LoaderManager $loaderManager, array $config)
+    public function __construct(EventDispatcherInterface $dispatcher, FileLocator $fileLocator, LoaderManager $loaderManager, array $config)
     {
+        $this->dispatcher    = $dispatcher;
         $this->fileLocator   = $fileLocator;
         $this->loaderManager = $loaderManager;
         $this->config        = $config;
@@ -108,6 +115,12 @@ class TranslationRepository
             $catalogue->set($message);
             $fileWriter->write($catalogue, $domain, $file, "yml");
         }
+
+        $event = new TranslationUpdateEvent();
+        $this->dispatcher->dispatch(
+            'translation.update',
+            $event
+        );
     }
 
 
