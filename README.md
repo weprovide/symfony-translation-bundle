@@ -62,6 +62,14 @@ we_provide_translation:
 ```
 
 
+## Commands
+
+In production or other non-debug environments the translations stored in YML are only updated when the cache is cleared. This bundle provides a command to clear cache when a translation has been changed. It's safe to execute or set this command as cron.
+
+```
+php bin/console weprovide:translation:recache --env=[prod,stag,dev]
+```
+
 ## License
 
 This bundle has been released under the MIT license and open for improvements, please share your thoughts which will be much appreciated.
