@@ -7,3 +7,27 @@
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.form-group[id$='_locales'],
+.form-group[id$='_locales'] table,
+.form-group[id$='_locales'] table th,
+.form-group[id$='_locales'] table td {
+    border: 0;
+}
+
+.form-group[id$='_locales'] table td {
+    display: block;
+    padding: 0;
+}
+
+.form-group[id$='_locales'] .required {
+    display: none;
+}
+
+.form-group[id$='_locales'] table td[class*='_locales-locale'] input {
+    border: 0;
+    background: transparent;
+    font-weight: bold;
+    padding: 0;
+    margin: 14px 0 0 0;
+}

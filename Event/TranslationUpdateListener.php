@@ -19,6 +19,6 @@ class TranslationUpdateListener
         // we've updated a translation. Use the command 'weprovide:translation:recache' (or add
         // it to cron) to determine wether or not the cache must be cleared (it also clears it).
         $fs = new Filesystem();
-        $fs->touch($this->cacheDir.'/wpclear');
+        $fs->touch($this->cacheDir . '/wpclear');
     }
 }

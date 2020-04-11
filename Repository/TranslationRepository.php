@@ -97,18 +97,18 @@ class TranslationRepository
     /**
      * Updates a translation.
      *
-     * @param $domain
-     * @param $id
-     * @param $localeString
+     * @param string $domain
+     * @param string $id
+     * @param array  $localeString
      */
-    public function updateTranslation($domain, $id, $localeString)
+    public function updateTranslation(string $domain, string $id, array $localeString)
     {
         $resourcePath = $this->config['resource'];
         $resourcePath = $this->fileLocator->locate($resourcePath);
         $yamlDumper   = new YamlDumper();
         $fileWriter   = new FileWriter(array("yml" => $yamlDumper));
         foreach ($localeString as $locale => $trans) {
-            $file      = $resourcePath."/".$domain.".".$locale.".yml";
+            $file      = $resourcePath . "/" . $domain . "." . $locale . ".yml";
             $catalogue = $this->getCatalogue($locale);
             $message   = $catalogue->get($id, $domain);
             $message->setLocaleString($trans);
@@ -180,7 +180,7 @@ class TranslationRepository
             if (($filterField = str_replace('_filter_', '', $key)) !== $key &&
                 ($criterion = array_filter($criterion))) {
                 $translations = array_filter($translations, function ($translation) use ($filterField, $criterion) {
-                    $func  = 'get'.$filterField;
+                    $func  = 'get' . $filterField;
                     $value = $translation->$func();
                     if (isset($criterion['value'])) {
                         return (strpos(strtolower($value), strtolower($criterion['value'])) !== false);

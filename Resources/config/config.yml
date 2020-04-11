@@ -1,0 +1,3 @@
+sonata_admin:
+  templates:
+    edit: WeProvideTranslationBundle::admin/edit.html.twig

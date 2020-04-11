@@ -3,17 +3,26 @@ services:
         class: WeProvide\TranslationBundle\Repository\TranslationRepository
         arguments: ['@event_dispatcher', '@file_locator', '@jms_translation.loader_manager', '%we_provide_translation.config%']
 
-    we_provide_admin_translation:
-        class: WeProvide\TranslationBundle\Admin\TranslationAdmin
-        arguments: [~, ~, WeProvideTranslationBundle:TranslationAdmin]
+    we_provide_translation_update_listener:
+        class: WeProvide\TranslationBundle\Event\TranslationUpdateListener
+        arguments: ['%kernel.cache_dir%']
+        tags:
+            - { name: kernel.event_listener, event: translation.update, method: onTranslationUpdate }
+
+    we_provide_translation.admin.translation_message:
+        class: WeProvide\TranslationBundle\Admin\TranslationMessageAdmin
+        arguments: [~, WeProvide\TranslationBundle\Entity\TranslationMessage, WeProvideTranslationBundle:TranslationMessageAdmin]
         tags:
             - { name: sonata.admin, manager_type: orm, group: Translation, label: Translation, label_catalogue: "WeProvideTranslationBundle" }
         public: true
         calls:
             - [ setTranslationDomain, [WeProvideTranslationBundle]]
 
-    we_provide_translation_update_listener:
-        class: WeProvide\TranslationBundle\Event\TranslationUpdateListener
-        arguments: ['%kernel.cache_dir%']
+    we_provide_translation.admin.translation_message_locale:
+        class: WeProvide\TranslationBundle\Admin\TranslationMessageLocaleAdmin
+        arguments: [~, WeProvide\TranslationBundle\Entity\TranslationMessageLocale, WeProvideTranslationBundle:TranslationMessageLocaleAdmin]
         tags:
-            - { name: kernel.event_listener, event: translation.update, method: onTranslationUpdate }
+            - { name: sonata.admin, manager_type: orm, group: Translation, label: Translation Locale, label_catalogue: "WeProvideTranslationBundle" }
+        public: true
+        calls:
+            - [ setTranslationDomain, [WeProvideTranslationBundle]]

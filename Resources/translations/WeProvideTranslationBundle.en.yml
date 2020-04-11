@@ -1,8 +1,8 @@
+Action: Action
 Domain: Domain
 'Extract translations': 'Extract translations'
 Label: Label
-'Transalation succesfully updated': 'Transalation succesfully updated'
-'Transalations succesfully extracted': 'Transalations succesfully extracted'
+'Locales Value': Translation
+'Transalations succesfully extracted': 'Transalations succesfully extracted.'
 Translation: Translation
-'Translation edit': 'Translation edit'
-'Translation list': 'Translation list'
+'Translation Message List': 'List of translations'

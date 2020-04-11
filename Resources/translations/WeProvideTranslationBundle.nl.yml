@@ -1,8 +1,8 @@
+Action: Actie
 Domain: Domein
 'Extract translations': 'Vertalingen verversen'
 Label: Label
-'Transalation succesfully updated': 'Vertaling bijgewerkt'
-'Transalations succesfully extracted': 'Vertalingen ververst'
+'Locales Value': Vertaling
+'Transalations succesfully extracted': 'Vertalingen succesvol ververst.'
 Translation: Vertaling
-'Translation edit': 'Vertaling bewerken'
-'Translation list': 'Lijst van vertalingen'
+'Translation Message List': 'Lijst van vertalingen'

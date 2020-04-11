@@ -7,7 +7,7 @@ The We Provide Translation Bundle for Symfony incorporates the JMS/TranslationBu
 
 This bundle is developed with a Symfony Standard Edition on PHP 7.1 using We Provide's version of valet. Obviously it has dependencies to other projects and/or bundles. Below a list of dependencies, please use the installation guides of these bundles first.
  * [Symfony Standard Edition 3.3](https://symfony.com/doc/current/setup.html#creating-symfony-applications-with-composer)
- * [Sonata Admin Bundle 3.23](https://sonata-project.org/bundles/admin/3-x/doc/getting_started/installation.html) (with [SonataDoctrineORMAdminBundle](https://sonata-project.org/bundles/doctrine-orm-admin/master/doc/reference/installation.html))
+ * [Sonata Admin Bundle 3.18](https://sonata-project.org/bundles/admin/3-x/doc/getting_started/installation.html) (with [SonataDoctrineORMAdminBundle](https://sonata-project.org/bundles/doctrine-orm-admin/master/doc/reference/installation.html))
  * [JMS Translation Bundle 1.3](https://jmsyst.com/bundles/JMSTranslationBundle/master/installation)
  * [Ivory CK Editor ^4.0](https://github.com/egeloen/IvoryCKEditorBundle)
 
@@ -40,6 +40,13 @@ class AppKernel extends Kernel
 
     // ...
 }
+```
+
+Import the global config of this bundle in your project's `config.yml`.
+
+```yaml
+imports:
+    - { resource: "@WeProvideTranslationBundle/Resources/config/config.yml" }
 ```
 
 Configure your locales and translation files folder in your `config.yml`.
