@@ -12,4 +12,11 @@
     </script>
 
     <script type="text/javascript" src="{{ asset('bundles/ivoryckeditor/ckeditor.js') }}"></script>
+
+    <script type="text/javascript">
+        CKEDITOR.config.autoParagraph = false;
+        CKEDITOR.config.enterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.config.shiftEnterMode = CKEDITOR.ENTER_BR;
+        CKEDITOR.config.forcePasteAsPlainText = true
+    </script>
 {% endblock %}

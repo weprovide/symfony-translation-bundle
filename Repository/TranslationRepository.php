@@ -26,6 +26,9 @@ class TranslationRepository
 
     protected $count;
 
+    /** @var array */
+    protected $catalogues = [];
+
 
     /**
      * TranslationRepository constructor.
@@ -47,14 +50,18 @@ class TranslationRepository
      * @param null $locale
      * @return \JMS\TranslationBundle\Model\MessageCatalogue
      */
-    private function getCatalogue($locale = null)
+    protected function getCatalogue($locale = null)
     {
-        $defaultLocale = $this->config['default_locale'];
-        $resourcePath  = $this->config['resource'];
-        $resourcePath  = $this->fileLocator->locate($resourcePath); // TODO: might throw error if path does not exist or is empty, maybe we should mkdir the path?
-        $catalogue     = $this->loaderManager->loadFromDirectory($resourcePath, ($locale ? $locale : $defaultLocale));
+        $locale = ($locale ? $locale : $this->config['default_locale']);
 
-        return $catalogue;
+        if (!isset($this->catalogues[$locale])) {
+            $resourcePath              = $this->config['resource'];
+            $resourcePath              = $this->fileLocator->locate($resourcePath); // TODO: might throw error if path does not exist or is empty, maybe we should mkdir the path?
+            $catalogue                 = $this->loaderManager->loadFromDirectory($resourcePath, $locale);
+            $this->catalogues[$locale] = $catalogue;
+        }
+
+        return $this->catalogues[$locale];
     }
 
     /**
