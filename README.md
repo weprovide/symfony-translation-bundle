@@ -77,6 +77,16 @@ In production or other non-debug environments the translations stored in YML are
 php bin/console weprovide:translation:recache --env=[prod,stag,dev]
 ```
 
+You can schedule an extraction of translations from the admin interface. This will not extract the translations directly because this can take a long time. Instead set the command below as cron to do actually execute the scheduled extraction. This will also clear the cache after extraction.
+```
+php bin/console weprovide:translation:reextract
+```
+
+You can use the command below to extract the translations.
+```
+php bin/console weprovide:translation:extract
+```
+
 ## License
 
 This bundle has been released under the MIT license and open for improvements, please share your thoughts which will be much appreciated.

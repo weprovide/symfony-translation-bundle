@@ -2,7 +2,7 @@
 	"name": "weprovide/symfony-translation-bundle",
 	"description": "The We Provide Translation Bundle for Symfony incorporates the JMS/TranslationBundle into the Sonata/AdminBundle.",
 	"type": "symfony-bundle",
-	"version": "0.2.2",
+	"version": "0.3.0",
 	"authors": [
 		{
 			"name": "Mischa Braam",

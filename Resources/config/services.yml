@@ -9,6 +9,12 @@ services:
         tags:
             - { name: kernel.event_listener, event: translation.update, method: onTranslationUpdate }
 
+    we_provide_translation_reextract_listener:
+        class: WeProvide\TranslationBundle\Event\TranslationReextractListener
+        arguments: ['%kernel.cache_dir%']
+        tags:
+            - { name: kernel.event_listener, event: translation.reextract, method: onTranslationReextract }
+
     we_provide_translation.admin.translation_message:
         class: WeProvide\TranslationBundle\Admin\TranslationMessageAdmin
         arguments: [~, WeProvide\TranslationBundle\Entity\TranslationMessage, WeProvideTranslationBundle:TranslationMessageAdmin]
